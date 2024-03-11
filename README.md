@@ -22,12 +22,12 @@ sudo apt install yarn
 # You'll use these keys, along with those from the agent's VM to configure wireguard.
 # Return to this spot once you've generated keys on the agent's VM
 wg genkey | tee privatekey | wg pubkey > publickey
+
+# Modify the wg0.conf with the two key values and ip address below:
+sudo vim /etc/wireguard/wg0.conf
 ```
 
-sudo vim /etc/wireguard/wg0.conf
-# insert the following, but replace the two key values and ip address:
-
-
+``` Python
 [Interface]
 PrivateKey = <server's private key>
 Address = 10.0.1.4/24
@@ -37,19 +37,30 @@ PublicKey = <agent's public key>
 Endpoint = <agent's public ip address>:51820
 AllowedIPs = 10.0.1.0/24
 PersistentKeepalive = 30
+```
 
-# ----------------------
-# clone bbot-gui ---------------------------------------------------------------------
-# ----------------------
 
-gh auth login 
-# follow instructions to login
-# *must have access to blacklanternsecurity/bbot-gui repo 
-# **optionally you could install git and login with your github creds instead, then use git clone git@github.com:blacklanternsecurity/bbot-gui.git
+### Clone bbot-gui from GitHub using gh
+You must have access to the Repo at github.com/blacklanternsecurity/bbot-gui
 
+``` Bash
+# Follow Instructions to Login with gh
+gh auth login
+
+# Create Source (or Repo) Folder then Clone Repo
 mkdir ~/source/
 cd ~/source/
 gh repo clone blacklanternsecurity/bbot-gui
+```
+
+### Clone bbot-gui from GitHub using git (with Pre-Established SSH Credentials)
+
+``` Bash
+# Create Source (or Repo) Folder then Clone Repo
+mkdir ~/source/
+cd ~/source/
+git clone git@github.com:blacklanternsecurity/bbot-gui.git
+```
 
 # ----------------------
 # config django ----------------------------------------------------------------------
