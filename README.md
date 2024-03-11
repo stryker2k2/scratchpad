@@ -1,10 +1,10 @@
 # BBOT-FE Installation Guide
 To get the bbot front end set up as it exists currently, you'll need to configure two machines, one for the server and one for the agent. These instructions assume you're using ubuntu VMs on BLS's network
 
-### Connect to the Server
+## Connect to the Server
 Connect to the server via SSH (or VMWare, VBox, or Proxmox Viewer)
 
-### Install Packages
+## Install Packages
 ``` Bash
 sudo apt-get update
 sudo apt-get -y install curl gh docker-compose wireguard npm
@@ -17,7 +17,7 @@ sudo apt install yarn
 ```
 
 
-### Config Wireguard
+## Config Wireguard
 ``` Bash
 # You'll use these keys, along with those from the agent's VM to configure wireguard.
 # Return to this spot once you've generated keys on the agent's VM
@@ -40,7 +40,7 @@ PersistentKeepalive = 30
 ```
 
 
-### Clone bbot-gui from GitHub using gh
+## Clone bbot-gui from GitHub using gh
 You must have access to the Repo at github.com/blacklanternsecurity/bbot-gui
 
 ``` Bash
@@ -53,7 +53,7 @@ cd ~/source/
 gh repo clone blacklanternsecurity/bbot-gui
 ```
 
-### Clone bbot-gui from GitHub using git (with Pre-Established SSH Credentials)
+## Clone bbot-gui from GitHub using git (with Pre-Established SSH Credentials)
 
 ``` Bash
 # Create Source (or Repo) Folder then Clone Repo
@@ -62,40 +62,62 @@ cd ~/source/
 git clone git@github.com:blacklanternsecurity/bbot-gui.git
 ```
 
-# ----------------------
-# config django ----------------------------------------------------------------------
-# ----------------------
 
-# in bbot-gui/django/Dockerfile, if you want to use the bbot stable release, remove the "--pre" from the following line:
+## Configure django
 
-&& pip3 install bbot --pre                      
 
-# *make sure to use stable on the bbot agent if you're using stable here
+In bbot-gui/django/Dockerfile, if you want to use the bbot "stable" release, remove the "--pre" from the following line:\
+*_Note: Ensure that you are using "stable" on the bbot agent if you're using stable here_*\
+`&& pip3 install bbot --pre`
 
-# update django/api/settings.py
-	# in ALLOWED_HOSTS, add new domain name (i.e. bbot-dev.blacklanernsecurity.com)
-	# in MICROSOFT-> "app_id" and "app_secret" need to be updated with values from the azure portal. a new app registration has to be made by IT (Zach has this documented) and can provide these values
-	# in MICROSOFT-> "redirect", use "<domain name>/microsoft_authentication/callback" (i.e https://bbot-dev.blacklanternsecurity.com/microsoft_authentication/callback)
-	# in MICROSOFT-> "logout_uri", use "<domain name>/admin/logout" (i.e. https://bbot-dev.blacklanternsecurity.com/admin/logout)
+Modify these Settings in Django's API Settings:
+``` Bash
+# Open Django's API Settings (from /bbot-gui/)
+sudo vim django/api/settings.py
+```
 
-# ----------------------
-# setup react ------------------------------------------------------------------------
-# ----------------------
+``` Python
+ALLOWED_HOSTS = [
+    "...",
+    "bbot-dev.blacklaternsecurity.com"
+]
 
+MICROSOFT = {
+    "app_id": "update with values from Azure Portal",
+    "app_secret": "update with values from Azure Portal",
+    "redirect": "https://bbot-dev.blacklanternsecurity.com/microsoft_authentication/callback"
+    "...",
+    "logout_uri": "https://bbot-dev.blacklanternsecurity.com/admin/logout" 
+} # Contact BLS IT for New App Registration Values
+```
+
+
+### Setup React
+
+``` Bash
 cd ~/source/bbot-gui/react
 mkdir node_modules
 yarn install
+```
 
-# ----------------------
-# install ssl cert--------------------------------------------------------------------
-# ----------------------
 
-# IT can provide ssl files for the server
+### Install SSL Cert
+
+Contact BLS IT for SSL File for the Server then Move Certs inth NGINX's SSL Folder
+``` Bash
 mv <certificate and key files> ~/sources/bbot-gui/nginx/ssl/
+```
 
+Update the Filenames in the NGINX Conf File
+``` Bash
+# Open NGINX Conf File (from /bbot-gui/)
+sudo vim nginx/ssl/nginx.conf
+```
+```
 # update the filenames in the following lines in ~/sources/bbot-gui/nginx/ssl/nginx.conf
     ssl_certificate /etc/nginx/ssl/<cert filename>;
     ssl_certificate_key /etc/nginx/ssl/<key filename>;
+```
 
 # ----------------------
 # start/config server ----------------------------------------------------------------
