@@ -65,7 +65,6 @@ git clone git@github.com:blacklanternsecurity/bbot-gui.git
 
 ## Configure django
 
-
 In bbot-gui/django/Dockerfile, if you want to use the bbot "stable" release, remove the "--pre" from the following line:\
 *_Note: Ensure that you are using "stable" on the bbot agent if you're using stable here_*\
 `&& pip3 install bbot --pre`
@@ -92,7 +91,7 @@ MICROSOFT = {
 ```
 
 
-### Setup React
+## Setup React
 
 ``` Bash
 cd ~/source/bbot-gui/react
@@ -101,7 +100,7 @@ yarn install
 ```
 
 
-### Install SSL Cert
+## Install SSL Cert
 
 Contact BLS IT for SSL File for the Server then Move Certs inth NGINX's SSL Folder
 ``` Bash
@@ -119,41 +118,49 @@ sudo vim nginx/ssl/nginx.conf
     ssl_certificate_key /etc/nginx/ssl/<key filename>;
 ```
 
-# ----------------------
-# start/config server ----------------------------------------------------------------
-# ----------------------
+## Configure and Start Server
 
+``` Bash
+# Terminal/Pane #1 (ssh into server)
 cd ~/source/bbot-gui/
 sudo docker-compose up
-# once that starts up, open another console window
-# ssh to same machine/user
+
+# Terminal/Pane #2 (ssh into server)
 cd ~/source/bbot-gui/
 sudo docker-compose exec django bash
 python manage.py createsuperuser
-# insert superuser info
-# in a browser, go to "<domain name>/admin" (i.e. https://bbot-dev.blacklanternsecurity.com/admin)
-# login with the superuser creds
-# go to "<domain name>/api/agents"
-# give the bbot agent you'll be using a name and click POST
-# go to "<domain name>/api/campaigns"
-# for campaign name, use the name of the customer (i.e. "GPC"). *also* make sure to click the name of the bbot agent in the next box before clicking POST
-# go back to "<domain name>/admin" and click "+Add" next to "Tokens"
-# select the name of your bbot agent in the drop down menu next to "User" and click "Save"
-# copy the key value. this will go in the secrets.yml file for your bbot agent
+```
 
-# ----------------------
-# config bbot agent ------------------------------------------------------------------
-# ----------------------
+Insert SuperUser Unfo
+1. in a browser, go to "<domain name>/admin" (i.e. https://bbot-dev.blacklanternsecurity.com/admin)
+1. login with the superuser creds
+1. go to "<domain name>/api/agents"
+1. give the bbot agent you'll be using a name and click POST
+1. go to "<domain name>/api/campaigns"
+1. for campaign name, use the name of the customer (i.e. "GPC"). *also* make sure to click the name of the bbot agent in the next box before clicking POST
+1. go back to "<domain name>/admin" and click "+Add" next to "Tokens"
+1. select the name of your bbot agent in the drop down menu next to "User" and click "Save"
+1. copy the key value. this will go in the secrets.yml file for your bbot agent
 
-# ssh to where you'll house the bbot agent
+
+# Config BBOT Agent
+
+## Install Packages
+``` Bash
+# ssh into bbot agent machine
 sudo apt update
 sudo apt-get install -y docker tmux wireguard
+```
 
-wg genkey | tee privatekey | wg pubkey > publickey
+## Configure Wireguard
+``` Bash
 # you'll need these keys and the keys from the server VM
-sudo vim /etc/wireguard/wg0.conf
-# paste in the following:
+wg genkey | tee privatekey | wg pubkey > publickey
 
+sudo vim /etc/wireguard/wg0.conf
+```
+
+``` Python
 [Interface]
 PrivateKey = <agent's private key>
 Address = 10.0.1.3/24
@@ -164,11 +171,19 @@ ListenPort = 51820
 [Peer]
 PublicKey = <server's public key>
 AllowedIPs = 10.0.1.4/32
+```
 
-# then to start wireguard, run this command on both VMs
+## Start Wireguard (on WebServer AND BBOT Agent VMs)
+
+``` Bash
+# start wireguard (on both VMs)
 sudo wg-quick up wg0
-# to test the connection, run the following command
+
+# run the following command to test the connection
 sudo wg show wg0
+```
+
+
 
 tmux
 sudo docker run --name bbot --entrypoint /bin/bash -it blacklanternsecurity/bbot:stable
