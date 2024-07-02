@@ -14,6 +14,21 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[0
 
 `$ source ~/.bashrc`
 
+### Docker
+``` Markdown
+# Helpful Docker Commands
+docker image -ls
+docker image -rm <image_name>
+docker ps -a
+docker start <docker_id>
+docker stop <docker_id>
+docker remove <docker_id>
+
+# Stop/Remove All Docker Containers
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+```
+
 
 ### VSCode Extensions
 - SQLite
