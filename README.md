@@ -29,6 +29,10 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
 
+### Docker Compose
+``` Markdown
+docker-compose exec <docker_name> bash
+```
 
 ### VSCode Extensions
 - SQLite
