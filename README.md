@@ -34,6 +34,12 @@ docker rm $(docker ps -a -q)
 docker-compose exec <docker_name> bash
 ```
 
+### Fix GitHub SSH Permission Error
+``` Bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/<cert>
+```
+
 ### VSCode Extensions
 - SQLite
 - Pylint
