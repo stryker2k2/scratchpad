@@ -27,6 +27,7 @@ docker remove <docker_id>
 # Run and Start Docker Interactively
 docker run -it <docker_image>
 docker start -i <docker_id>
+docker exec -it <docker_id> /bin/bash
 
 # Stop/Remove All Docker Containers
 docker stop $(docker ps -a -q)
