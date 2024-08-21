@@ -41,8 +41,15 @@ docker-compose exec <docker_name> bash
 
 ### Fix GitHub SSH Permission Error
 ``` Bash
+# Linux
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/<cert>
+```
+``` Powershell
+# Windows (Terminal as Admin)
+Get-Service ssh-agent | Set-Service -StartupType Automatic
+Start-Service ssh-agent
+ssh-add C:\Users\<user>\.ssh\<keyname>
 ```
 
 ### VSCode Extensions
