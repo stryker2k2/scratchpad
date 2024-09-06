@@ -42,6 +42,11 @@ docker-compose exec <docker_name> bash
 ### Fix GitHub SSH Permission Error
 ``` Bash
 # Linux
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/<cert>
+```
+``` Bash
+# GitBash on Windows
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/<cert>
 ```
