@@ -33,7 +33,7 @@ docker exec -it <docker_id> /bin/bash
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
-$ Remove All Docker Images
+# Remove All Docker Images
 docker image rm $(docker image ls -a -q)
 ```
 
