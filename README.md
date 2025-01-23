@@ -17,6 +17,11 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\w\[\033
 Change Log:
 - 2025/01/22 - remove hostname and fixed word-wrap overflow issue
 
+### List (ls) with Numeric Permissions (600, 755, etc)
+``` python
+alias cls="ls -l | awk   '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
+```
+
 ### Docker
 ``` Markdown
 # Helpful Docker Commands
