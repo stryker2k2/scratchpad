@@ -43,6 +43,10 @@ docker rm $(docker ps -a -q)
 
 # Remove All Docker Images
 docker image rm $(docker image ls -a -q)
+
+# View all Docker Volumes (and Remove All Volumes)
+docker volume ls
+docker volume rm $(docker volume ls -q)
 ```
 
 ### Docker Compose
