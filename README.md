@@ -1,10 +1,19 @@
 # Jack's Scratchpad
 
+### New Ubuntu VM Must-Haves
+``` bash
+sudo apt update -y && sudo apt upgrade -y
+sudo apt install git tmux nano net-tools
+```
+
 ### Git Branch in Terminal.
 
 `$ sudo nano ~/.bashrc`
 
 ``` python
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/<cert>
+
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -20,6 +29,38 @@ Change Log:
 ### List (ls) with Numeric Permissions (600, 755, etc)
 ``` python
 alias cls="ls -l | awk   '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
+```
+
+### Install Docker
+``` bash
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+# Update
+sudo apt update
+
+# Install Docker
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+# Add User to Docker Groups
+sudo usermod -aG docker $USER
+newgrp docker
+
+# Test with Hello World Docker
+sudo docker run hello-world
 ```
 
 ### Docker
