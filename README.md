@@ -1,10 +1,12 @@
+# TEST TEST TEST
+
 # Jack's Scratchpad
 
 ### Git Branch in Terminal.
 
 `$ sudo nano ~/.bashrc`
 
-``` python
+```python
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -15,7 +17,8 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[0
 `$ source ~/.bashrc`
 
 ### Docker
-``` Markdown
+
+```Markdown
 # Helpful Docker Commands
 docker image -ls
 docker image -rm <image_name>
@@ -38,12 +41,14 @@ docker image rm $(docker image ls -a -q)
 ```
 
 ### Docker Compose
-``` Markdown
+
+```Markdown
 docker-compose exec <docker_name> bash
 ```
 
 ### Fix GitHub SSH Permission Error
-``` Bash
+
+```Bash
 # Linux
 ssh-keygen -t ed25519 -C "name@email.com" # Create Key
 eval $(ssh-agent -s) # Startup SSH Agent
@@ -51,12 +56,14 @@ ssh-add ~/.ssh/<cert> # Add Key
 ssh-add -l # List Current Keys
 cat <cert>.pub # Copy Public Key and the Paste into Github SSH Settings Page
 ```
-``` Bash
+
+```Bash
 # GitBash on Windows
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/<cert>
 ```
-``` Powershell
+
+```Powershell
 # Windows (Terminal as Admin)
 Get-Service ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
@@ -64,6 +71,7 @@ ssh-add C:\Users\<user>\.ssh\<keyname>
 ```
 
 ### VSCode Extensions
+
 - SQLite
 - Pylint
 - Pylance
