@@ -1,40 +1,38 @@
 #!/bin/bash
 # set_monitors.sh
 # Hard-coded script to restore a specific multi-monitor layout using xrandr.
-# This script configures three displays: DP-0.2, DP-0.1, and eDP-1-0.
+# This script configures two displays: DP-4-1 and DP-4-2.
+# The laptop display (eDP-1) is disconnected/disabled in this configuration.
 
 # -----------------------------------------------------------------------------
 # Configuration Breakdown (Derived from the user's 'xrandr --current' output):
 #
-# 1. DP-0.2 (Portrait Left Monitor):
-#    - Mode: 1920x1080 (Rotated resolution used in the mode list)
+# 1. DP-4-1 (Left Monitor / Primary):
+#    - Mode: 1920x1080
 #    - Rate: 60.00 Hz (*)
 #    - Position: 0x0
-#    - Rotation: left
-#
-# 2. DP-0.1 (Center Monitor):
-#    - Mode: 2560x1440
-#    - Rate: 120.00 Hz (*)
-#    - Position: 1080x240 (Offset to align vertically with the other screens)
-#
-# 3. eDP-1-0 (Primary Laptop Screen):
-#    - Mode: 1920x1200
-#    - Rate: 165.00 Hz (*)
-#    - Position: 3640x360
 #    - Status: Primary
+#
+# 2. DP-4-2 (Right Monitor):
+#    - Mode: 1920x1080
+#    - Rate: 60.00 Hz (*)
+#    - Position: 1920x0 (Adjacent to the right of DP-4-1)
+#
+# 3. eDP-1 (Laptop Screen):
+#    - Status: Connected but not active (no mode/position shown)
 # -----------------------------------------------------------------------------
 
 # Start with a clean xrandr command
 XRANDR_CMD="xrandr"
 
-# 1. Configure DP-0.2 (Left, Rotated Portrait)
-XRANDR_CMD+=" --output DP-0.2 --mode 1920x1080 --rate 60.00 --pos 0x0 --rotate left"
+# 1. Configure DP-4-1 (Left, Primary)
+XRANDR_CMD+=" --output DP-4-1 --primary --mode 1920x1080 --rate 60.00 --pos 0x0 --rotate normal"
 
-# 2. Configure DP-0.1 (Center, High Refresh Rate)
-XRANDR_CMD+=" --output DP-0.1 --primary --mode 2560x1440 --rate 120.00 --pos 1080x240"
+# 2. Configure DP-4-2 (Right)
+XRANDR_CMD+=" --output DP-4-2 --mode 1920x1080 --rate 60.00 --pos 1920x0 --rotate normal"
 
-# 3. Configure eDP-1-0 (Right, Primary Laptop Screen)
-XRANDR_CMD+=" --output eDP-1-0 --mode 1920x1200 --rate 165.00 --pos 3640x360"
+# 3. Disable eDP-1 (Laptop Screen - not in use)
+XRANDR_CMD+=" --output eDP-1 --off"
 
 
 echo "Applying xrandr configuration..."
