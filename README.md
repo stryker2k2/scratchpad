@@ -6,6 +6,11 @@ sudo apt update -y && sudo apt upgrade -y
 sudo apt install git tmux nano net-tools
 ```
 
+### Github/Gitlab Cert
+``` bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
 ### Git Branch in Terminal.
 
 `$ sudo nano ~/.bashrc`
@@ -115,12 +120,3 @@ Get-Service ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
 ssh-add C:\Users\<user>\.ssh\<keyname>
 ```
-
-### VSCode Extensions
-- SQLite
-- Pylint
-- Pylance
-- Black Formatter
-- Flake8
-- Ruff
-- Remote Explorer
