@@ -23,7 +23,7 @@ parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h: \[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[01;00m\]\n$ "
+PROMPT_COMMAND='branch=$(git branch 2>/dev/null | grep "^*" | cut -d" " -f2); if [ -n "$branch" ]; then PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h: \[\033[01;34m\]\w\[\033[01;31m\] ($branch)\[\033[01;00m\]\n$ "; else PS1="${debian_chroot:+($debian_chroo>
 ```
 
 `$ source ~/.bashrc`
