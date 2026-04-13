@@ -28,9 +28,6 @@ PROMPT_COMMAND='branch=$(git branch 2>/dev/null | grep "^*" | cut -d" " -f2); if
 
 `$ source ~/.bashrc`
 
-Change Log:
-- 2025/01/22 - remove hostname and fixed word-wrap overflow issue
-
 ### List (ls) with Numeric Permissions (600, 755, etc)
 ``` python
 alias cls="ls -l | awk   '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
@@ -119,4 +116,23 @@ ssh-add ~/.ssh/<cert>
 Get-Service ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
 ssh-add C:\Users\<user>\.ssh\<keyname>
+```
+
+Claude Code Settings (~/.claude/settings.json)
+``` json
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Read",
+      "Find",
+      "Bash(find:*)",
+      "Bash(xargs:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)"
+    ]
+  }
+}
 ```
