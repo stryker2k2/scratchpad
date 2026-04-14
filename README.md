@@ -126,7 +126,8 @@ Claude Code Settings (~/.claude/settings.json)
       "WebSearch",
       "WebFetch",
       "Read",
-      "Find",
+      "Write",
+      "Grep",
       "Bash(find:*)",
       "Bash(xargs:*)",
       "Bash(grep:*)",
@@ -136,9 +137,21 @@ Claude Code Settings (~/.claude/settings.json)
       "Bash(wc:*)",
       "Bash(tail:*)",
       "Bash(head:*)",
-      "Bash(where:*)",
-      "Bash(which:*)"
+      "Bash(which:*)",
+      "Bash(cd:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)"
     ]
-  }
+  },
+  "attribution": {
+    "commits": false
+  },
+  "model": "claude-sonnet-4-6",
+  "effortLevel": "high",
+  "alwaysThinkingEnabled": true
 }
 ```
