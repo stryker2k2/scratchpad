@@ -131,7 +131,11 @@ Claude Code Settings (~/.claude/settings.json)
       "Bash(xargs:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(objdump:*)",
+      "Bash(wc:*)",
+      "Bash(tail:*)",
+      "Bash(head:*)"
     ]
   }
 }
