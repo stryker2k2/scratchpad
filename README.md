@@ -135,7 +135,9 @@ Claude Code Settings (~/.claude/settings.json)
       "Bash(objdump:*)",
       "Bash(wc:*)",
       "Bash(tail:*)",
-      "Bash(head:*)"
+      "Bash(head:*)",
+      "Bash(where:*)",
+      "Bash(which:*)"
     ]
   }
 }
