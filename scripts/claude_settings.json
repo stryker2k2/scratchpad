@@ -1,0 +1,56 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Read",
+      "Write",
+      "Grep",
+      "Bash(find:*)",
+      "Bash(xargs:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(objdump:*)",
+      "Bash(wc:*)",
+      "Bash(tail:*)",
+      "Bash(head:*)",
+      "Bash(which:*)",
+      "Bash(cd:*)",
+      "Bash(mkdir:*)",
+      "Bash(sed:*)",
+      "Bash(sort:*)",
+      "Bash(echo:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm list:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git show:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/bash-permissions.py"
+          }
+        ]
+      }
+    ]
+  },
+  "attribution": {
+    "commits": false
+  },
+  "model": "claude-sonnet-4-6",
+  "effortLevel": "high",
+  "alwaysThinkingEnabled": true
+}
