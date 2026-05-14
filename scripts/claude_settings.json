@@ -26,7 +26,8 @@
       "Bash(npx tsc:*)",
       "Bash(git show:*)",
       "Bash(git ls-tree:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(git diff:*)"
     ],
     "deny": [
       "Read(./.env)",
