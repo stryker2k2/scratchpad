@@ -4,7 +4,6 @@
       "WebSearch",
       "WebFetch",
       "Read",
-      "Write",
       "Grep",
       "Bash(find:*)",
       "Bash(xargs:*)",
@@ -21,13 +20,18 @@
       "Bash(sed:*)",
       "Bash(sort:*)",
       "Bash(echo:*)",
+      "Bash(/home/dev/repo/splinternet/build/linux/venv/bin/python:*)",
+      "Bash(/home/dev/repo/splinternet/build/linux/venv/bin/pip:*)",
+      "Bash(/home/dev/repo/splinternet/build/linux/dev-venv/bin/python:*)",
+      "Bash(/home/dev/repo/splinternet/build/linux/dev-venv/bin/pip:*)",
       "Bash(npm run build:*)",
       "Bash(npm list:*)",
       "Bash(npx tsc:*)",
       "Bash(git show:*)",
       "Bash(git ls-tree:*)",
       "Bash(git log:*)",
-      "Bash(git diff:*)"
+      "Bash(git diff:*)",
+      "Bash(git status:*)"
     ],
     "deny": [
       "Read(./.env)",
